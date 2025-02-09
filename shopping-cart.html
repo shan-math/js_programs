@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background: white;
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #ff4500;
+        }
+
+        input {
+            width: 70%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input:focus {
+            border-color: #ff4500;
+            outline: none;
+        }
+
+        .add-btn {
+            background: #ff4500;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, background 0.3s;
+        }
+
+        .add-btn:hover {
+            transform: scale(1.1);
+            background: #ff6347;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background: #fff;
+            padding: 10px;
+            margin: 8px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        li:hover {
+            transform: scale(1.02);
+        }
+
+        .delete-btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .delete-btn:hover {
+            background: darkred;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🛒 My Shopping List</h1>
+
+        <div>
+            <input type="text" id="item" placeholder="Enter a new item...">
+            <button class="add-btn">Add</button>
+        </div>
+
+        <ul id="shopping-list"></ul>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const addButton = document.querySelector(".add-btn");
+            const inputField = document.getElementById("item");
+            const itemList = document.getElementById("shopping-list");
+
+            function addItem() {
+                let itemText = inputField.value.trim();
+                if (itemText === "") {
+                    alert("❌ Please enter an item!");
+                    return;
+                }
+
+                const listItem = document.createElement("li");
+                const span = document.createElement("span");
+                const deleteButton = document.createElement("button");
+
+                span.textContent = itemText;
+                deleteButton.textContent = "Delete";
+                deleteButton.classList.add("delete-btn");
+
+                deleteButton.addEventListener("click", () => {
+                    listItem.style.transform = "scale(0)";
+                    setTimeout(() => itemList.removeChild(listItem), 200);
+                });
+
+                listItem.appendChild(span);
+                listItem.appendChild(deleteButton);
+                itemList.appendChild(listItem);
+
+                inputField.value = "";
+                inputField.focus();
+            }
+
+            addButton.addEventListener("click", addItem);
+
+            inputField.addEventListener("keypress", (event) => {
+                if (event.key === "Enter") {
+                    addItem();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
