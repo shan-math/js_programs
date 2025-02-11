@@ -98,8 +98,9 @@
         function fun(event) {
             event.preventDefault();
 
-            let yn = document.getElementById("yn").value.trim().toLowerCase();
-            let cn = document.getElementById("cn").value.trim().toLowerCase();
+            let yn = document.getElementById("yn").value.trim().toLowerCase().replace(/\s+/g, "");
+            let cn = document.getElementById("cn").value.trim().toLowerCase().replace(/\s+/g, "");
+
             let errorYn = document.getElementById("error-yn");
             let errorCn = document.getElementById("error-cn");
             let resultBox = document.getElementById("result-box");
@@ -112,12 +113,6 @@
             if (yn === "" || cn === "") {
                 if (yn === "") errorYn.textContent = "❌ Please enter your name!";
                 if (cn === "") errorCn.textContent = "❌ Please enter a name!";
-                return false;
-            }
-
-            if (yn === cn) {
-                resultText.textContent = "Best Friends Forever! 💕";
-                resultBox.style.display = "block";
                 return false;
             }
 
